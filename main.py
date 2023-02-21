@@ -1,50 +1,50 @@
 import sys
 
-def sort_string(text, MAX_INDEX, start, INDEX_INC):
-    INDEX_INC = MAX_INDEX
-    CNT = start
-    end = -1
-    LEN = len(text)
-    if CNT == LEN + 1:
+def sort_string(TEXT, MAX_INDEX, START_INDEX, INDEX_INC):
+    CNT = START_INDEX
+    END_INDEX = -1
+    TEXT_LENGTH = len(TEXT)
+    if CNT == TEXT_LENGTH + 1:
         print('Строки разделены')
         quit()
-    if LEN - CNT < INDEX_INC:
-            print_string(LEN, MAX_INDEX, text, start,  INDEX_INC)
-    while ((CNT != MAX_INDEX) and CNT != LEN):
-        if text[CNT] == '@':
-            temp = text.find(':', CNT, MAX_INDEX - 1)
+    if TEXT_LENGTH - CNT < INDEX_INC:
+            print_string(TEXT_LENGTH, MAX_INDEX, TEXT, START_INDEX, INDEX_INC)
+    while ((CNT != MAX_INDEX) and CNT != TEXT_LENGTH):
+        if TEXT[CNT] == '@':
+            temp = TEXT.find(':', CNT, MAX_INDEX - 1)
             if temp < (MAX_INDEX - 1) and temp != -1:
                 CNT = temp + 1
+            elif temp == -1:
+                CNT += 1
             else:
                 print('Невозможно разделить следующую строку')
                 quit()
-        if text[CNT] == ' ':
-            end = CNT
+        if TEXT[CNT] == ' ':
+            END_INDEX = CNT
             if CNT - 1 < MAX_INDEX:
                 CNT += 1
 
-        elif text[CNT] == '\n':
-            end = CNT
+        elif TEXT[CNT] == '\n':
+            END_INDEX = CNT
             if CNT - 1 < MAX_INDEX:
                 CNT += 1
         else:
             CNT += 1
-    if end == -1:
+    if END_INDEX == -1:
         print('Невозможно разделить строку')
         quit()
-    print_string(end, MAX_INDEX, text, start, INDEX_INC)
+    print_string(END_INDEX, MAX_INDEX, TEXT, START_INDEX, INDEX_INC)
 
-def print_string(end, MAX_INDEX, text, start, INDEX_INC):
-    FINAL_STR = text[start:end]
+def print_string(END_INDEX, MAX_INDEX, TEXT, START_INDEX, INDEX_INC):
+    FINAL_STR = TEXT[START_INDEX:END_INDEX]
     print(FINAL_STR)
     print('\n')
-    start = end + 1
+    START_INDEX = END_INDEX + 1
     MAX_INDEX += INDEX_INC
-    sort_string(text, MAX_INDEX, start, INDEX_INC)
+    sort_string(TEXT, MAX_INDEX, START_INDEX, INDEX_INC)
 
 def main(args: list[str]):
     # input()
-
     # Нужно сделать какой-то while чтобы постоянно спрашивал -f
 
     if len(sys.argv) == 1:
@@ -61,10 +61,10 @@ def main(args: list[str]):
     INDEX_INC = MAX_INDEX
 
     file = open(sys.argv[2])
-    text = file.read()
-    start = 0
+    TEXT = file.read()
+    START_INDEX = 0
     # print(text)
-    sort_string(text, MAX_INDEX, start, INDEX_INC)
+    sort_string(TEXT, MAX_INDEX, START_INDEX, INDEX_INC)
 
 if __name__=='__main__':
     main(sys.argv)
