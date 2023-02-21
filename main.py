@@ -1,5 +1,4 @@
 import sys
-import os
 
 def sort_string(TEXT, MAX_INDEX, START_INDEX, INDEX_INC, L_RULE,D_RULE, FILE_CNT):
     CNT = START_INDEX
@@ -53,19 +52,10 @@ def sort_string(TEXT, MAX_INDEX, START_INDEX, INDEX_INC, L_RULE,D_RULE, FILE_CNT
 def print_string(END_INDEX, MAX_INDEX, TEXT, START_INDEX, INDEX_INC, L_RULE, D_RULE, FILE_CNT):
     FINAL_STR = TEXT[START_INDEX:END_INDEX]
     if D_RULE == 1:
-        # NEW_FILE = open(fr"{sys.argv[7]}\STR{FILE_CNT}.txt", "w+")
-        # NEW_FILE.write(FINAL_STR)
-        # NEW_FILE.close()
-        # os.mknod("str" + FILE_CNT + " .txt")
         with open (sys.argv[7] + "str" + str(FILE_CNT) + ".txt", "w") as NEW_FILE:
             NEW_FILE.write("%s" % FINAL_STR)
-        # with open('str'+FILE_CNT+' .txt', 'w') as f:
-        #     f.write("%s\n" % FINAL_STR)
-        # NEW_FILE = os.path.join(f"{sys.argv[7]}", f'str{FILE_CNT}.txt')
-        # print(FINAL_STR, NEW_FILE)
         FILE_CNT += 1
     print(FINAL_STR)
-    # print('\n')
     START_INDEX = END_INDEX + 1
     MAX_INDEX = START_INDEX + INDEX_INC
     sort_string(TEXT, MAX_INDEX, START_INDEX, INDEX_INC, L_RULE, D_RULE, FILE_CNT)
@@ -76,7 +66,6 @@ def main(args: list[str]):
     print('Введите -f "путь к файлу" -n "Максимальное количество символов"')
     if len(sys.argv) == 1:
          print('Введите -f "путь к файлу" -n "Максимальное количество символов"')
-         # Нужно вернуться к началу выполнения функции
     else:
         PARAM_NAME = sys.argv[1]
     if PARAM_NAME == '-f':
